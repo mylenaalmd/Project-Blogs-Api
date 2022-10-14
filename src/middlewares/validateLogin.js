@@ -11,9 +11,9 @@ const validateLogin = async (req, res, next) => {
       where: { email, password },
       attributes: { exclude: ['password'] },
     });
+    
+    if (!user) return res.status(400).json({ message: 'Invalid fields' });
     console.log(user, 'userValidade');
-
-    if (!user) return res.status(400).json('Invalid fields');
 
     next();
   } catch (e) {
