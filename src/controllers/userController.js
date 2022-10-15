@@ -40,7 +40,7 @@ const getUser = async (_req, res) => {
     try {
       const { body } = req;
       const { type, message } = await userService.createUser(body);
-      console.log(type, 'type');
+      // console.log(type, 'type');
 
       return res.status(type).json(message);
     } catch (e) {

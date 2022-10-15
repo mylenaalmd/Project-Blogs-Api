@@ -5,6 +5,7 @@ const secret = process.env.JWT_SECRET || 'secret';
 
 const auth = async (req, res, next) => {
   const token = req.header('Authorization');
+  console.log(token, 'token');
 
   if (!token) return res.status(401).json({ message: 'Token not found' });
 
@@ -19,4 +20,5 @@ const auth = async (req, res, next) => {
 };
 
 module.exports = { 
-  auth };
+  auth, 
+};
