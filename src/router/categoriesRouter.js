@@ -1,10 +1,10 @@
-const { Router } = require('express');
-const categoriesController = require('../controllers/categoriesController');
+// const { Router } = require('express');
+// const categoriesController = require('../controllers/categoriesController');
 
-const router = Router();
+// const router = Router();
 
-router.get('/', categoriesController.getCategories);
+// router.get('/', categoriesController.getCategories);
 
-router.post('/', categoriesController.createCategories);
+// router.post('/', categoriesController.createCategories);
 
-module.exports = router;
+// module.exports = router;
