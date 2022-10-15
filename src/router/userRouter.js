@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const userController = require('../controllers/userController');
+const { auth } = require('../utils/tokenUser');
 const { 
   userValidation,
   validationDisplayName, 
@@ -10,8 +11,8 @@ const {
 
 const router = Router();
 
-router.get('/', userController.getUser);
-router.get('/:id', registerUserId, userController.getUserById);
+router.get('/', auth, userController.getUser);
+router.get('/:id', auth, registerUserId, userController.getUserById);
 
 router.post('/', 
 userValidation,
@@ -19,7 +20,5 @@ validationDisplayName,
 validationPassword, 
 validationEmail,
 userController.createUser);
-
-// router.delete('/me', userController.deleteMe);
 
 module.exports = router;
