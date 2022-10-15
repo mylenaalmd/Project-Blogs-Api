@@ -13,12 +13,12 @@ const validateLogin = async (req, res, next) => {
     });
     
     if (!user) return res.status(400).json({ message: 'Invalid fields' });
-    console.log(user, 'userValidade');
+    // console.log(user, 'userValidade');
 
     next();
   } catch (e) {
     console.error(e);
-    return res.status(500).json('Internal error');
+    return res.status(500).json({ message: 'Internal error' });
   }
 };
 

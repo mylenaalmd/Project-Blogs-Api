@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const BlogPost = sequelize.define('blog_posts', {
+  const BlogPost = sequelize.define('BlogPost', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'blog_posts',
     underscored: true //snake_case
   });
+
+  BlogPost.associate = (models) =>{
+    BlogPost.belongsTo(models.User, {foreingKey: 'userId', as: 'user'});
+  }
 
 
   return BlogPost;

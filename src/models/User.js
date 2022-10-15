@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true //snake_case
   });
 
-  // User.associate = (models) => {
-  //   User.hasMany(models.BlogPost, {
-  //     as: "postId",
-  //     foreignKey: "userId"
-  //   })
-  // }
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost, {
+      as: "postId",
+      foreignKey: "userId"
+    })
+  }
 
   return User;
 }
