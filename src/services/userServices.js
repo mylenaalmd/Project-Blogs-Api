@@ -38,8 +38,15 @@ const createUser = async ({ displayName, email, password, image = '' }) => {
 }
 };
 
+const deleteMe = async (id) => {
+  await User.destroy(
+   { where: { id } },
+  );
+};
+
 module.exports = {
   getUser,
   getUserById,
   createUser,
+  deleteMe,
 };

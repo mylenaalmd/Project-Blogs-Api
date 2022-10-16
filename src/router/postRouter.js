@@ -1,14 +1,15 @@
-const { Router } = require('express');
-const { auth } = require('../utils/tokenUser');
+const express = require('express');
+const auth = require('../utils/tokenUser');
 const postController = require('../controllers/postController');
 const { validatePostId, postValidate } = require('../middlewares/validatePost');
 
-const router = Router();
+const router = express.Router();
 
+router.get('/search', auth, postController.searchPost);
+router.post('/', auth, postValidate, postController.createPost);
 router.get('/', auth, postController.getPost);
 router.get('/:id', auth, validatePostId, postController.getPostId);
-router.post('/', auth, postValidate, postController.createPost);
-// router.put('/:id', postController.updatePost);
-// router.delete('/:id', postController.deletePostId);
+// router.put('/:id', auth, postController.updatePost);
+router.delete('/:id', auth, postController.deletePost);
 
 module.exports = router;

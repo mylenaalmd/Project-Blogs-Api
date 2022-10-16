@@ -47,10 +47,18 @@ const getUser = async (_req, res) => {
       return res.status(500).json({ message: 'Internal error' });
     }
   };
+
+  const deleteMe = async (req, res) => {
+    const userId = req.id;
+    await userService.deleteMe(userId);
+    
+    return res.status(204).end();
+  };
   
 module.exports = {
   createLogin,
   getUser,
   getUserById,
   createUser,
+  deleteMe,
 };

@@ -1,6 +1,6 @@
-const { Router } = require('express');
+const express = require('express');
 const userController = require('../controllers/userController');
-const { auth } = require('../utils/tokenUser');
+const auth = require('../utils/tokenUser');
 const { 
   userValidation,
   validationDisplayName, 
@@ -9,7 +9,7 @@ const {
   registerUserId,
 } = require('../middlewares/validationUser');
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', auth, userController.getUser);
 router.get('/:id', auth, registerUserId, userController.getUserById);
@@ -20,5 +20,7 @@ validationDisplayName,
 validationPassword, 
 validationEmail,
 userController.createUser);
+
+router.delete('/me', auth, userController.deleteMe);
 
 module.exports = router;

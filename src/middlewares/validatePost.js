@@ -6,7 +6,7 @@ const validatePostId = async (req, res, next) => {
     const { params: { id } } = req;
     const { message } = await postService.getPostId(id);
 
-    if (!message) return res.status(400).json({ message: 'Post does not exist' });
+    if (!message) return res.status(404).json({ message: 'Post does not exist' });
     next();
   } catch (e) {
     return res.status(500).json({ message: 'Internal error' });
