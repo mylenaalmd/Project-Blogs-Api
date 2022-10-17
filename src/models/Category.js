@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const category = sequelize.define('Category', {
+  const Category = sequelize.define('Category', {
     id: {
       primaryKey: true,
       allowNull: false,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true //snake_case
   });
 
-  return category;
+  return Category;
 }
 
 // module.exports = userSchema;

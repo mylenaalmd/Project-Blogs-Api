@@ -1,5 +1,5 @@
 const postService = require('../services/postService');
-const userService = require('../services/userServices');
+// const userService = require('../services/userServices');
 
 const createPost = async (req, res) => {
   try {
@@ -36,14 +36,14 @@ const getPostId = async (req, res) => {
 
 const deletePost = async (req, res) => {
   const { params: { id } } = req;
-  const user = await userService.getUserById(id);
-  const userPosts = user.posts;
-  const validation = userPosts.some((userPost) => userPost.id === Number(id));
+  const userId = req.id;
   const checkPost = await postService.getPostId(id);
+  console.log(checkPost, 'checkPost');
   if (!checkPost) return res.status(404).json({ message: 'Post does not exist' });
-  if (!validation) {
+  if (Number(userId) !== Number(checkPost.message)) {
     return res.status(401).json({ message: 'Unauthorized user' });
   }
+  // await postService.deletePost(id);
   return res.status(204).end();
 };
 

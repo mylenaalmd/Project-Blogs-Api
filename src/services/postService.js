@@ -29,9 +29,10 @@ const getPost = async () => {
 };
 
 const getPostId = async (id) => {
-  try {
+  console.log(id);
       const post = await BlogPost.findOne({ where: { id },
-        include: [{
+        include: [
+          {
           model: User,
           as: 'user',
           attributes: ['id', 'displayName', 'email', 'image'],
@@ -44,9 +45,6 @@ const getPostId = async (id) => {
       ],
     });
      return { type: 200, message: post };
-  } catch (e) {
-    return e;
-  }
 };
 
 const createPost = async (title, content, categoryIds, id) => {

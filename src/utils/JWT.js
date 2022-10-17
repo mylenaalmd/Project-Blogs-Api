@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const jwtConfig = {
-    expiresIn: '1d',
+    expiresIn: '15d',
     algorithm: 'HS256',
 };
 
