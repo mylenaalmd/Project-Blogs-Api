@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const Op = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, User, Category, PostCategory } = require('../models');
 const config = require('../config/config');
 
@@ -80,7 +80,7 @@ const searchPost = async (q) => {
     },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories' },
+      { model: Category, as: 'categories', through: { attributes: [] } }, 
     ],
   });
   return result;

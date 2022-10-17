@@ -50,8 +50,8 @@ const deletePost = async (req, res) => {
 
 const searchPost = async (req, res) => {
   const { q } = req.query;
-  const users = await postService.getPost();
-  if (!q) return res.status(200).json(users);
+  // const users = await postService.getPost();
+  // if (!q) return res.status(200).json(users);
   const result = await postService.searchPost(q);
   return res.status(200).json(result);
 };

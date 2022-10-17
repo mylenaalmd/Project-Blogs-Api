@@ -25,8 +25,8 @@ const postValidate = async (req, res, next) => {
   
   const arrayCategories = await Category.findAll();
   const validateCategory = arrayCategories
-  .every((item) => categoryIds.includes(item.dataValues.id));
-  console.log(validateCategory);
+  .some((item) => categoryIds.includes(item.dataValues.id));
+  console.log(validateCategory, 'valid');
 
   if (!validateCategory) { return res.status(400).json({ message: '"categoryIds" not found' }); }
 
