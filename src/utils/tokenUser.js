@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Token not found' });
   
   try {
-    console.log(token, 'token');
+    // console.log(token, 'token');
     const decoded = jwt.verify(token, secret);
     req.id = decoded.id;
     req.userName = decoded.displayName;

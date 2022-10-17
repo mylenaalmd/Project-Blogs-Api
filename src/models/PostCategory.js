@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
-    },categoryId: {
+    },
+    categoryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true

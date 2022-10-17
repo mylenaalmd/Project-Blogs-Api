@@ -4,8 +4,9 @@ const postService = require('../services/postService');
 const createPost = async (req, res) => {
   try {
     const { 
-  body: { title, content, categoryIds },
-  payload: { id } } = req;
+      body: { title, content, categoryIds } } = req;
+      const { id } = req;
+      console.log(id);
   const { type, message } = await postService.createPost(title, content, categoryIds, id);
   return res.status(type).json(message);
   } catch (e) {
@@ -37,13 +38,13 @@ const getPostId = async (req, res) => {
 const deletePost = async (req, res) => {
   const { params: { id } } = req;
   const userId = req.id;
-  const checkPost = await postService.getPostId(id);
-  console.log(checkPost, 'checkPost');
+  const checkPost = await postService.getPostTest(id);
+  console.log(userId, checkPost, 'userId');
   if (!checkPost) return res.status(404).json({ message: 'Post does not exist' });
-  if (Number(userId) !== Number(checkPost.message)) {
+  if (Number(userId) !== Number(checkPost.dataValues.userId)) {
     return res.status(401).json({ message: 'Unauthorized user' });
   }
-  // await postService.deletePost(id);
+  await postService.deletePost(id);
   return res.status(204).end();
 };
 

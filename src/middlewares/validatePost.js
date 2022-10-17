@@ -15,15 +15,20 @@ const validatePostId = async (req, res, next) => {
 
 const postValidate = async (req, res, next) => {
   const { body: { title, content, categoryIds } } = req;
-
+  // console.log(categoryIds);
+  
   if (!title || !content || !categoryIds) { 
     return res.status(400).json({ message: 'Some required fields are missing' }); 
   }
-
+  // const idI = categoryIds[0];
+  // const idII = categoryIds[1];
+  
   const arrayCategories = await Category.findAll();
-  const isvalid = arrayCategories.every((item) => categoryIds.includes(item.id));
+  const validateCategory = arrayCategories
+  .every((item) => categoryIds.includes(item.dataValues.id));
+  console.log(validateCategory);
 
-  if (!isvalid) { return res.status(400).json({ message: '"categoryIds" not found' }); }
+  if (!validateCategory) { return res.status(400).json({ message: '"categoryIds" not found' }); }
 
   next();
 };

@@ -5,7 +5,7 @@ const config = require('../config/config');
 
 const env = process.env.NODE_ENV || 'development';
 
-const seqlz = new Sequelize(config[env]);
+const sequelize = new Sequelize(config[env]);
 
 const getPost = async () => {
   try {
@@ -29,39 +29,37 @@ const getPost = async () => {
 };
 
 const getPostId = async (id) => {
-  console.log(id);
-      const post = await BlogPost.findOne({ where: { id },
-        include: [
-          {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'displayName', 'email', 'image'],
-        },
-        {
-          model: Category,
-          as: 'categories',
-          through: { attributes: [] },
-        },
-      ],
-    });
+  const post = await BlogPost.findOne({ where: { id },
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'displayName', 'email', 'image'],
+      },
+      {
+        model: Category,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+  });
+  console.log(post);
      return { type: 200, message: post };
 };
+const getPostTest = async (id) => BlogPost.findByPk(id);
 
-const createPost = async (title, content, categoryIds, id) => {
-  try {
-    const result = await seqlz.transaction(async (transaction) => {
-      const newBlogPost = await BlogPost.create({ title, content, userId: id }, { transaction });
+const createPost = async (title, content, categoryIds, userId) => {
+    const result = await sequelize.transaction(async (transaction) => {
+      const newBlogPost = await BlogPost.create({ title, content, userId }, { transaction });
       await Promise.all(
         categoryIds.map((categoryId) => PostCategory.create({ 
-        postId: newBlogPost.id, categoryId }, { transaction })),
-      );
-      return newBlogPost;
-    });
-
-  return { type: 200, message: result };
-  } catch (e) {
-    return e;
-  }
+          postId: newBlogPost.dataValues.id, categoryId }, { transaction })),
+          );
+          return newBlogPost;
+        });
+        
+        console.log(result);
+  return { type: 201, message: result };
 };
 
 const deletePost = async (id) => {
@@ -98,5 +96,6 @@ module.exports = {
   createPost,
   deletePost,
   searchPost,
+  getPostTest,
   // updatePost,
 };
