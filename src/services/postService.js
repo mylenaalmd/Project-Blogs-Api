@@ -49,16 +49,17 @@ const getPostId = async (id) => {
 const getPostTest = async (id) => BlogPost.findByPk(id);
 
 const createPost = async (title, content, categoryIds, userId) => {
-    const result = await sequelize.transaction(async (transaction) => {
-      const newBlogPost = await BlogPost.create({ title, content, userId }, { transaction });
-      await Promise.all(
-        categoryIds.map((categoryId) => PostCategory.create({ 
-          postId: newBlogPost.dataValues.id, categoryId }, { transaction })),
-          );
-          return newBlogPost;
-        });
+    console.log(categoryIds);
+  const result = await sequelize.transaction(async (transaction) => {
+    const newBlogPost = await BlogPost.create({ title, content, userId }, { transaction });
+    await Promise.all(
+      categoryIds.map((categoryId) => PostCategory.create({ 
+        postId: newBlogPost.dataValues.id, categoryId }, { transaction })),
+        );
+        return newBlogPost;
+      });
+      console.log(result);
         
-        console.log(result);
   return { type: 201, message: result };
 };
 
@@ -86,9 +87,10 @@ const searchPost = async (q) => {
   return result;
 };
 
-// const updatePost = async () => {
-  
-// };
+const updatePost = async ({ title, content, id }) => {
+  const result = await BlogPost.update({ title, content }, { where: { id } });
+  return result;
+};
 
 module.exports = {
   getPost,
@@ -97,5 +99,5 @@ module.exports = {
   deletePost,
   searchPost,
   getPostTest,
-  // updatePost,
+  updatePost,
 };

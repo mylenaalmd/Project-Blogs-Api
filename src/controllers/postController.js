@@ -56,9 +56,25 @@ const searchPost = async (req, res) => {
   return res.status(200).json(result);
 };
 
-// const updatePost = async (req, res) => {
-  
-// };
+const updatePost = async (req, res) => {
+  const { params: { id } } = req;
+  const { body: { title, content } } = req;
+  if (!title || !content) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  // const userId = req.id;
+  // const users = await userService.getUserById(userId);
+  // const userPostId = await postService.createPost(id, title, content, userId);
+  // console.log(userPostId, 'number');
+  // const userPosts = user.posts;
+  // const validatePost = users.some((user) => user.dataValues.id === Number(id));
+  // if (users.message.dataValues.id !== Number()) {
+  //   return res.status(401).json({ message: 'Unauthorized user' });
+  // }
+  await postService.updatePost({ title, content, id });
+  const result = await postService.getPostId(id);
+  return res.status(200).json(result);
+};
 
 module.exports = { 
   getPost, 
@@ -66,5 +82,5 @@ module.exports = {
   createPost,
   deletePost,
   searchPost,
-  // updatePost,
+  updatePost,
  };
